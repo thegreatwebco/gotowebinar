@@ -8,6 +8,7 @@ use Slakbal\Gotowebinar\Resources\Session\Session;
 use Slakbal\Gotowebinar\Resources\Webinar\Webinar;
 use Slakbal\Gotowebinar\Resources\Attendee\Attendee;
 use Slakbal\Gotowebinar\Resources\Registrant\Registrant;
+use Slakbal\Gotowebinar\Resources\RegistrationField\RegistrationField;
 
 class GotoWebinarServiceProvider extends ServiceProvider
 {
@@ -17,9 +18,9 @@ class GotoWebinarServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (! App::environment('production')) {
-            $this->loadRoutesFrom(__DIR__.'/Routes/routes.php');
-        }
+        // if (! App::environment('production')) {
+        //     $this->(__DIR__.'/Routes/routes.php');
+        // }
 
         $this->publishes([__DIR__.'/../config/goto.php' => config_path('goto.php')], 'config');
     }
@@ -43,6 +44,10 @@ class GotoWebinarServiceProvider extends ServiceProvider
 
         $this->app->bind(Attendee::class, function () {
             return new Attendee();
+        });
+        
+        $this->app->bind(RegistrationField::class, function () {
+            return new RegistrationField();
         });
     }
 }
